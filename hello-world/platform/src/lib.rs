@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use bevy::prelude::App;
 use core::ffi::c_void;
 use roc_std::RocStr;
 use std::ffi::CStr;
@@ -55,17 +56,11 @@ pub unsafe extern "C" fn roc_memset(dst: *mut c_void, c: i32, n: usize) -> *mut 
 
 #[no_mangle]
 pub extern "C" fn rust_main() -> i32 {
-    unsafe {
-        let roc_str = roc_main();
+    App::new().add_system(hello_world).run();
+    let exit_code = 0;
+    exit_code
+}
 
-        let len = roc_str.len();
-        let str_bytes = roc_str.get_bytes() as *const libc::c_void;
-
-        if libc::write(1, str_bytes, len) < 0 {
-            panic!("Writing to stdout failed!");
-        }
-    }
-
-    // Exit code
-    0
+fn hello_world() {
+    println!("Hello, World!");
 }

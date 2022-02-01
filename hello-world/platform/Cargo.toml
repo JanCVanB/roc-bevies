@@ -5,6 +5,7 @@ authors = ["The Roc Contributors"]
 license = "UPL-1.0"
 edition = "2018"
 links = "app"
+resolver = "2"
 
 [lib]
 name = "host"
@@ -18,5 +19,6 @@ path = "src/main.rs"
 [dependencies]
 roc_std = { path = "../../roc/roc_std" }
 libc = "0.2"
+bevy = { version = "0.6.0" }
 
 [workspace]
