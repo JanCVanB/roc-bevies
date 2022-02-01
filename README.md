@@ -4,3 +4,5 @@
 +
 [Roc](https://roc-lang.org/)
 = <3
+
+![breakout gameplay recording gif](./breakout/recording.gif)
