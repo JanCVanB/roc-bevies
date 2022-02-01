@@ -3,11 +3,11 @@ app "game"
     imports []
     provides [ speed ] to pf
 
-# A speed of 300-700 feels "normal".
+# A speed of 400 feels "normal".
 # Below 100, the game feels too slow.
-# Above 900, the ball tunnels through the game's walls.
+# Above 500, the ball might tunnel through the game's walls, never to be seen again.
 # Negative numbers make the platform controls reversed.
-speed = 500 |> formatForPlatform
+speed = 400 |> formatForPlatform
 
 # Why I16? The platform can't convert a larger number to the 32-bit float it needs.
 formatForPlatform : I16 -> Str
