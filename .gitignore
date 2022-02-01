@@ -1,3 +1,6 @@
+# built game executables
+game
+
 # Roc-generated files
 target
 *.ll
