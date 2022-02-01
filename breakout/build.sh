@@ -1,2 +1,2 @@
 #!/bin/bash
-./roc/target/release/roc build ./hello-world/game.roc
+./roc/target/release/roc build ./breakout/game.roc

@@ -1,5 +1,5 @@
 #!/bin/bash
-game='./hello-world/game'
+game='./breakout/game'
 if [ -f $game ]; then
 	$game
 else

@@ -1,4 +1,4 @@
-platform "hello-world"
+platform "breakout"
     requires {} { greeting : Str }
     exposes []
     packages {}
