@@ -1,10 +1,10 @@
 platform "hello-world"
-    requires {} { main : Str }
+    requires {} { greeting : Str }
     exposes []
     packages {}
     imports []
-    provides [ mainForHost ]
+    provides [ greetingForHost ]
     effects fx.Effect {}
 
-mainForHost : Str
-mainForHost = main
+greetingForHost : Str
+greetingForHost = greeting

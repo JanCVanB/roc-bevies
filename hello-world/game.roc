@@ -1,12 +1,6 @@
 app "game"
     packages { pf: "platform" }
     imports []
-    provides [ main ] to pf
+    provides [ greeting ] to pf
 
-greeting =
-    hi = "Hello"
-    name = "World"
-
-    "\(hi), \(name)!\n"
-
-main = greeting
+greeting = "Hello, World!"

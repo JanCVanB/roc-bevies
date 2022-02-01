@@ -7,8 +7,8 @@ use std::ffi::CStr;
 use std::os::raw::c_char;
 
 extern "C" {
-    #[link_name = "roc__mainForHost_1_exposed"]
-    fn roc_main() -> RocStr;
+    #[link_name = "roc__greetingForHost_1_exposed"]
+    fn roc_greeting() -> RocStr;
 }
 
 #[no_mangle]
@@ -56,11 +56,15 @@ pub unsafe extern "C" fn roc_memset(dst: *mut c_void, c: i32, n: usize) -> *mut 
 
 #[no_mangle]
 pub extern "C" fn rust_main() -> i32 {
-    App::new().add_system(hello_world).run();
+    App::new().add_system(greet).run();
     let exit_code = 0;
     exit_code
 }
 
-fn hello_world() {
-    println!("Hello, World!");
+fn greet() {
+    let greeting;
+    unsafe {
+        greeting = roc_greeting();
+    }
+    println!("{}", greeting.as_str());
 }
