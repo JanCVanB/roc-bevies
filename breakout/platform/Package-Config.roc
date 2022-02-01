@@ -1,10 +1,10 @@
 platform "breakout"
-    requires {} { greeting : Str }
+    requires {} { speed : Str }
     exposes []
     packages {}
     imports []
-    provides [ greetingForHost ]
+    provides [ speedForHost ]
     effects fx.Effect {}
 
-greetingForHost : Str
-greetingForHost = greeting
+speedForHost : Str
+speedForHost = speed

@@ -6,13 +6,18 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
 };
 use core::ffi::c_void;
-use roc_std::RocStr;
+use roc_std::{
+    RocDec,
+    RocStr,
+};
+use std::convert::TryInto;
 use std::ffi::CStr;
+use std::num::TryFromIntError;
 use std::os::raw::c_char;
 
 extern "C" {
-    #[link_name = "roc__greetingForHost_1_exposed"]
-    fn roc_greeting() -> RocStr;
+    #[link_name = "roc__speedForHost_1_exposed"]
+    fn roc_speed() -> RocStr;
 }
 
 #[no_mangle]
@@ -105,6 +110,16 @@ struct Scoreboard {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Add the game's entities to our world
 
+    let speed_raw;
+    unsafe {
+        // TODO: Implement RocInt?
+        //       That would improve the platform API beyond what roc_std currently supports.
+        speed_raw = RocDec::from_str_to_i128_unsafe(roc_speed().as_str());
+    }
+    let speed_downsizing: Result<i16, TryFromIntError> = speed_raw.try_into();
+    speed_downsizing.expect("speed must be between -2^16 and 2^16");
+    let speed: f32 = speed_downsizing.ok().unwrap().into();
+
     // cameras
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
     commands.spawn_bundle(UiCameraBundle::default());
@@ -122,7 +137,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             },
             ..Default::default()
         })
-        .insert(Paddle { speed: 500.0 })
+        .insert(Paddle { speed: speed })
         .insert(Collider::Paddle);
     // ball
     commands
@@ -139,7 +154,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ..Default::default()
         })
         .insert(Ball {
-            velocity: 400.0 * Vec3::new(0.5, -0.5, 0.0).normalize(),
+            velocity: speed * Vec3::new(0.5, -0.5, 0.0).normalize(),
         });
     // scoreboard
     commands.spawn_bundle(TextBundle {
