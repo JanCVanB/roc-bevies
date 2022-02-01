@@ -1,4 +1,4 @@
-app "hello-rust"
+app "game"
     packages { pf: "platform" }
     imports []
     provides [ main ] to pf
