@@ -4,7 +4,6 @@ platform "breakout"
     packages {}
     imports []
     provides [ speedForHost ]
-    effects fx.Effect {}
 
 speedForHost : Str
 speedForHost = speed

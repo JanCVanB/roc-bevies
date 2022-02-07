@@ -4,7 +4,6 @@ platform "hello-world"
     packages {}
     imports []
     provides [ greetingForHost ]
-    effects fx.Effect {}
 
 greetingForHost : Str
 greetingForHost = greeting
