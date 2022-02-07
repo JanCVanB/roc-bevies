@@ -1,4 +1,4 @@
-platform "hello-world"
+platform "roc-bevies/hello-world"
     requires {} { greeting : Str }
     exposes []
     packages {}

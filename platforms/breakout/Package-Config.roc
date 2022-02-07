@@ -1,4 +1,4 @@
-platform "breakout"
+platform "roc-bevies/breakout"
     requires {} { speed : Str }
     exposes []
     packages {}

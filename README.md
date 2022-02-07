@@ -5,4 +5,4 @@
 [Bevy](https://bevyengine.org/)
 = <3
 
-![breakout gameplay recording gif](./breakout/recording.gif)
+![breakout gameplay recording gif](./examples/breakout.gif)

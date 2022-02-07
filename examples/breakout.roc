@@ -1,5 +1,5 @@
-app "game"
-    packages { pf: "platform" }
+app "breakout"
+    packages { pf: "../platforms/breakout" }
     imports []
     provides [ speed ] to pf
 
