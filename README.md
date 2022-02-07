@@ -1,8 +1,8 @@
-# Bevy-based game platforms for Roc
+# Roc platforms for making games with Bevy
 
-[Bevy](https://bevyengine.org/)
-+
 [Roc](https://roc-lang.org/)
++
+[Bevy](https://bevyengine.org/)
 = <3
 
 ![breakout gameplay recording gif](./breakout/recording.gif)
