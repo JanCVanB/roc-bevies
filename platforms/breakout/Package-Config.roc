@@ -1,9 +1,9 @@
 platform "roc-bevies/breakout"
-    requires {} { speed : Str }
+    requires {} { speed : speedForHost }
     exposes []
     packages {}
     imports []
     provides [ speedForHost ]
 
-speedForHost : Str
+speedForHost : F32
 speedForHost = speed

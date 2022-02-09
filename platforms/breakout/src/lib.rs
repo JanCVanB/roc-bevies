@@ -6,10 +6,6 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
 };
 use core::ffi::c_void;
-use roc_std::{
-    RocDec,
-    RocStr,
-};
 use std::convert::TryInto;
 use std::ffi::CStr;
 use std::num::TryFromIntError;
@@ -17,7 +13,7 @@ use std::os::raw::c_char;
 
 extern "C" {
     #[link_name = "roc__speedForHost_1_exposed"]
-    fn roc_speed() -> RocStr;
+    fn roc_speed() -> f32;
 }
 
 #[no_mangle]
@@ -110,15 +106,10 @@ struct Scoreboard {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Add the game's entities to our world
 
-    let speed_raw;
+    let speed;
     unsafe {
-        // TODO: Implement RocInt?
-        //       That would improve the platform API beyond what roc_std currently supports.
-        speed_raw = RocDec::from_str_to_i128_unsafe(roc_speed().as_str());
+        speed = roc_speed();
     }
-    let speed_downsizing: Result<i16, TryFromIntError> = speed_raw.try_into();
-    speed_downsizing.expect("speed must be between -2^16 and 2^16");
-    let speed: f32 = speed_downsizing.ok().unwrap().into();
 
     // cameras
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
