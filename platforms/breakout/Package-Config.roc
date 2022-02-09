@@ -1,9 +1,12 @@
 platform "roc-bevies/breakout"
-    requires {} { speed : speedForHost }
+    requires {} { config : configForHost }
     exposes []
     packages {}
     imports []
-    provides [ speedForHost ]
+    provides [ configForHost ]
 
-speedForHost : F32
-speedForHost = speed
+configForHost : {
+    ballSpeed : F32,
+    paddleSpeed : F32,
+    }
+configForHost = config
