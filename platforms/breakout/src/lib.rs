@@ -16,10 +16,10 @@ extern "C" {
     fn roc_config() -> Config;
 }
 
-#[derive(Debug)]
 #[repr(C)]
 struct Config {
     pub ballSpeed: f32,
+    pub badPleaseFix: f32,
     pub paddleSpeed: f32,
 }
 
@@ -117,7 +117,6 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     unsafe {
         config = roc_config();
     }
-    println!("{:?}", config);
 
     // cameras
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());

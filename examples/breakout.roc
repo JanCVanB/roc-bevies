@@ -5,5 +5,6 @@ app "breakout"
 
 config = {
     ballSpeed: 400,
+    badPleaseFix: 500,
     paddleSpeed: 500,
     }

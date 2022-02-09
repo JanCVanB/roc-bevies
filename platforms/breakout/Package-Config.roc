@@ -7,6 +7,7 @@ platform "roc-bevies/breakout"
 
 configForHost : {
     ballSpeed : F32,
+    badPleaseFix : F32,
     paddleSpeed : F32,
     }
 configForHost = config
