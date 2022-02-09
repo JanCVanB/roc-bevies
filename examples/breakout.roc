@@ -4,5 +4,6 @@ app "breakout"
     provides [ config ] to pf
 
 config = {
-    speed: 500,
+    ballSpeed: 400,
+    paddleSpeed: 500,
     }

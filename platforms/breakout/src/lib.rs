@@ -11,14 +11,21 @@ use std::ffi::CStr;
 use std::num::TryFromIntError;
 use std::os::raw::c_char;
 
-extern "C" {
-    #[link_name = "roc__configForHost_1_exposed"]
-    fn roc_config() -> Config;
+fn roc_config() -> Config {
+    extern "C" {
+        #[link_name = "roc__configForHost_1_exposed_generic"]
+        fn roc_config_internal(_: &mut Config);
+    }
+    let mut config = Config::default();
+    unsafe { roc_config_internal(&mut config) };
+    config
 }
 
+#[derive(Default)]
 #[repr(C)]
 struct Config {
-    pub speed: f32,
+    pub ballSpeed: f32,
+    pub paddleSpeed: f32,
 }
 
 #[no_mangle]
@@ -111,10 +118,7 @@ struct Scoreboard {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Add the game's entities to our world
 
-    let config;
-    unsafe {
-        config = roc_config();
-    }
+    let config = roc_config();
 
     // cameras
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
@@ -133,7 +137,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             },
             ..Default::default()
         })
-        .insert(Paddle { speed: config.speed })
+        .insert(Paddle { speed: config.paddleSpeed })
         .insert(Collider::Paddle);
     // ball
     commands
@@ -150,7 +154,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ..Default::default()
         })
         .insert(Ball {
-            velocity: config.speed * Vec3::new(0.5, -0.5, 0.0).normalize(),
+            velocity: config.ballSpeed * Vec3::new(0.5, -0.5, 0.0).normalize(),
         });
     // scoreboard
     commands.spawn_bundle(TextBundle {

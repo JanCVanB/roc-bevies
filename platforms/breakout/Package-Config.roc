@@ -6,6 +6,7 @@ platform "roc-bevies/breakout"
     provides [ configForHost ]
 
 configForHost : {
-    speed : F32,
+    ballSpeed : F32,
+    paddleSpeed : F32,
     }
 configForHost = config
