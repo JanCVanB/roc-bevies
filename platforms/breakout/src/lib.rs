@@ -12,8 +12,13 @@ use std::num::TryFromIntError;
 use std::os::raw::c_char;
 
 extern "C" {
-    #[link_name = "roc__speedForHost_1_exposed"]
-    fn roc_speed() -> f32;
+    #[link_name = "roc__configForHost_1_exposed"]
+    fn roc_config() -> Config;
+}
+
+#[repr(C)]
+struct Config {
+    pub speed: f32,
 }
 
 #[no_mangle]
@@ -106,9 +111,9 @@ struct Scoreboard {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Add the game's entities to our world
 
-    let speed;
+    let config;
     unsafe {
-        speed = roc_speed();
+        config = roc_config();
     }
 
     // cameras
@@ -128,7 +133,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             },
             ..Default::default()
         })
-        .insert(Paddle { speed: speed })
+        .insert(Paddle { speed: config.speed })
         .insert(Collider::Paddle);
     // ball
     commands
@@ -145,7 +150,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ..Default::default()
         })
         .insert(Ball {
-            velocity: speed * Vec3::new(0.5, -0.5, 0.0).normalize(),
+            velocity: config.speed * Vec3::new(0.5, -0.5, 0.0).normalize(),
         });
     // scoreboard
     commands.spawn_bundle(TextBundle {
